@@ -26,12 +26,12 @@ permissions: {}
 
 jobs:
   homebrew:
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     
     strategy:
       fail-fast: false
       matrix:
-        adapter: ['dbt-postgres', 'dbt-redshift', 'dbt-snowflake', 'dbt-bigquery']
+        adapter: ['dbt-bigquery']
 
     steps:
       - name: Brew install ${{ matrix.adapter }}
@@ -45,17 +45,17 @@ jobs:
         run: |
           dbt --version
           
-  post-failure:
-    runs-on: ubuntu-latest
-    needs: homebrew
-    if: ${{ failure() }}
+  # post-failure:
+  #   runs-on: ubuntu-latest
+  #   needs: homebrew
+  #   if: ${{ failure() }}
 
-    steps:
-      - name: Posting scheduled run failures
-        uses: ravsamhq/notify-slack-action@v1
-        if: ${{ github.event_name == 'schedule' }}
-        with:
-          notification_title: 'Homebrew nightly integration test failed'
-          status: ${{ job.status }}
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEV_CORE_ALERTS }}
+  #   steps:
+  #     - name: Posting scheduled run failures
+  #       uses: ravsamhq/notify-slack-action@v1
+  #       if: ${{ github.event_name == 'schedule' }}
+  #       with:
+  #         notification_title: 'Homebrew nightly integration test failed'
+  #         status: ${{ job.status }}
+  #   env:
+  #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEV_CORE_ALERTS }}

@@ -1,8 +1,8 @@
 {
   "action": "workflow_dispatch",
   "inputs": {
-    "version": "1.0.6",
-    "dbt-package": "dbt-postgres",
+    "version": "1.2.0",
+    "dbt-package": "dbt-bigquery",
     "is-default-version": "true"
   }
 }
