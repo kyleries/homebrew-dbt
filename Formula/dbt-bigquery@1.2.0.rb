@@ -10,9 +10,9 @@ class DbtBigqueryAT120 < Formula
   depends_on "rust" => :build
   depends_on "python@3.9"
 
-  on_linux do
-    depends_on "python3-dev" => :build
-  end
+  # on_linux do
+  #   depends_on "python3-dev" => :build
+  # end
 
   resource "agate" do
     url "https://files.pythonhosted.org/packages/ae/0e/34231b11f1b80463f64c5be7d7279de5a5609a47c59c0e34ba7016e4e333/agate-1.6.3.tar.gz"
@@ -259,6 +259,11 @@ class DbtBigqueryAT120 < Formula
     sha256 "e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21"
   end
 
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/45/8d/00ecdc169f2ed7d95e1076c63cdf4315d92c875e9cff2e595b6b410fb8d6/setuptools-65.1.0.tar.gz"
+    sha256 "d2e010624c781b26ad6629a8de9832327cf853dea93894487979e55f9ad06857"
+  end
+
   resource "six" do
     url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
     sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
@@ -291,7 +296,7 @@ class DbtBigqueryAT120 < Formula
 
   def install
     ENV["CARGO_NET_GIT_FETCH_WITH_CLI"] = "true"
-    venv = virtualenv_create(libexec, "python3", system_site_packages: false)
+    venv = virtualenv_create(libexec, "python3")
     venv.instance_variable_get(:@formula).system venv.instance_variable_get(:@venv_root)/"bin/python",
        "-m", "pip", "install", "pip==22.0.4"
     resources.each do |r|
