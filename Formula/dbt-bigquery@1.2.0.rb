@@ -10,6 +10,10 @@ class DbtBigqueryAT120 < Formula
   depends_on "rust" => :build
   depends_on "python@3.9"
 
+  on_linux do
+    depends_on "python3-dev" => :build
+  end
+
   resource "agate" do
     url "https://files.pythonhosted.org/packages/ae/0e/34231b11f1b80463f64c5be7d7279de5a5609a47c59c0e34ba7016e4e333/agate-1.6.3.tar.gz"
     sha256 "e0f2f813f7e12311a4cdccc97d6ba0a6781e9c1aa8eca0ab00d5931c0113a308"
